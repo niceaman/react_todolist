@@ -1,12 +1,17 @@
 import { func } from "prop-types";
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useReducer } from "react";
 import * as TodoAPIServices from "../services/todoServices";
 import { getSevenDayRange } from "../utils/DateUtils";
+
+import todoReducer, { INIT_TODO } from "../reducers/todoReducers";
 
 export const TodoContext = createContext();
 
 // Provider : wrapper Component
 function TodoContextProvider(props) {
+  const [allTodoList, dispatchTodo] = useReducer(todoReducer, INIT_TODO);
+  console.log("STATE", allTodoList);
+
   const [todos, setTodos] = useState([]);
   const [todosFilter, setTodosFilter] = useState([]);
 
@@ -23,6 +28,14 @@ function TodoContextProvider(props) {
       // #2 : Sync with Internal State
       setTodos(response.data.todos);
       setTodosFilter(response.data.todos);
+
+      // #2-Alternative : ออกใบสั่ง
+      let dispatchObj = {
+        type: "FETCH_TODO",
+        payload: { todos: response.data.todos },
+      };
+
+      dispatchTodo(dispatchObj);
     } catch (error) {
       // #3 Error handler
       console.log(error.response.status);
@@ -128,8 +141,8 @@ function TodoContextProvider(props) {
 
   const shareObj = {
     magic: 42,
-    todos,
-    todosFilter,
+    todos: allTodoList.todos,
+    todosFilter: allTodoList.todosFilter,
     addTodo,
     editTodo,
     deleteTodo,
