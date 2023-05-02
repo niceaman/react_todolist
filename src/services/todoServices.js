@@ -1,10 +1,12 @@
-import axios from './axios';
+import MyAxios from "./axios";
 
-export const getAllTodo = async () => await axios.get('/todos');
+export const getAllTodo = async () => await MyAxios.get("/todos");
 
-export const createTodo = async (newTodoObj) => await axios.post('/todos', newTodoObj);
+export const createTodo = async (newTodoObj) =>
+  await MyAxios.post("/todos", newTodoObj);
 
 export const updateTodo = async (updateTodoObj) =>
-    await axios.put(`/todos/${updateTodoObj.id}`, updateTodoObj);
+  await MyAxios.put(`/todos/${updateTodoObj.id}`, updateTodoObj);
 
-export const deleteTodo = async (todoId) => await axios.delete(`todos/${todoId}`);
+export const deleteTodo = async (todoId) =>
+  await MyAxios.delete(`todos/${todoId}`);

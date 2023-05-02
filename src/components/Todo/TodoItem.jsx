@@ -1,12 +1,18 @@
 import styles from './TodoItem.module.scss';
 
-import { useState } from 'react';
+import { useState, useContext} from 'react';
+import {TodoContext} from '../../contexts/TodoContext'
 import { TodoForm } from './TodoForm';
 import { HiCheck, HiPencil, HiTrash } from 'react-icons/hi';
 import { convertDate } from '../../utils/DateUtils';
 
 
+
 export function TodoItem({ todo,onEditTodo, onDeleteTodo }) {
+
+    const {deleteTodo} = useContext(TodoContext)
+    
+
     const [isEdit, setIsEdit] = useState(false);
 
 
@@ -18,7 +24,7 @@ export function TodoItem({ todo,onEditTodo, onDeleteTodo }) {
    }
 
    const handleClickDeleteBox = () => {
-    onDeleteTodo(todo.id)
+    deleteTodo(todo.id)
    }
 
     
