@@ -1,16 +1,19 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react'; // *1
+import { useTodo } from '../hooks/useTodo';
 import { FaInbox, FaRegCalendar, FaRegCalendarAlt, FaChevronDown } from 'react-icons/fa';
 import { Button } from '../components/Common/Button';
-import { TodoContext } from '../contexts/TodoContext';
 
-export function SideBar({ onSelect }) {
-    const {selectList} = useContext(TodoContext)
+export function SideBar() {
+    const { selectList } = useTodo(); // *3
+   
 
     const [selectedIndex, setSelectedIndex] = useState(0);
+
     const handleSelectList = (index) => {
         setSelectedIndex(index);
-        selectList(index);
+        selectList(index); // *
     };
+
     return (
         <aside className='sidebar'>
             <section className='sidebar__generic'>

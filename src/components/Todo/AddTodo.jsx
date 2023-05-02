@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './AddTodo.module.scss';
 import { TodoForm } from './TodoForm';
-export function AddTodo({ onAddTodo }) {
+export function AddTodo() {
     const [isAddMode, setIsAddMode] = useState(false);
 
     const handleClickAdd = () => setIsAddMode(true);
@@ -14,7 +14,7 @@ export function AddTodo({ onAddTodo }) {
                     <h3>Add task</h3>
                 </div>
             ) : (
-                <TodoForm textConfirm='Add task' onSetShow={setIsAddMode} onAddTodo={onAddTodo} />
+                <TodoForm textConfirm='Add task' onSetShow={setIsAddMode}  />
             )}
         </div>
     );
